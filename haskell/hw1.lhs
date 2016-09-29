@@ -1,7 +1,7 @@
 1. Code a function to quadruple a number using a function that doubles a number then write out the complete step-by-step evaluation of quadruple 5 (from HWIB).
 
 > double x = 2 * x
-> quadruple x = double x
+> quadruple x = double (double x)
 
 2. Code a function averageThree :: Integer -> Integer -> Integer - Float that returns the average of the three integer arguments (from CRFP). This will expose you to the reality that Haskell does NO automatic type conversion and you have to learn how to properly do explicit type conversion.
 
