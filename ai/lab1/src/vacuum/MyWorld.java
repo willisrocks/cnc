@@ -16,8 +16,9 @@ public class MyWorld {
         int sum = 0;
         for (int i = 0; i < 100; i++) {
             World world = new World(25);
-            StateAgent agent = new StateAgent();
-//            StateAgent agent = new StateAgent();
+            AbstractAgent agent = new StateAgent();
+//            AbstractAgent agent = new RandomAgent();
+//            AbstractAgent agent = new ReflexAgent();
             sum += world.simulate(agent, 10000);
         }
         System.out.println(sum / 100);
@@ -92,7 +93,7 @@ public class MyWorld {
      * score: the sum, over all steps, of the number of clean squares and
      * obstacles.
      */
-    public int simulate(StateAgent agent, int steps) {
+    public int simulate(AbstractAgent agent, int steps) {
         int score = 0;
         for (int t = 0; t < steps; t++) {
             step(agent);
@@ -111,7 +112,7 @@ public class MyWorld {
      * Performs one step of simulation: feeds the agent a percept and performs
      * the agent's action.
      */
-    public void step(StateAgent agent) {
+    public void step(AbstractAgent agent) {
         Square square = getSquare(agentX, agentY);
         boolean percept = square.isDirty();
         Action action = agent.react(percept);
@@ -139,9 +140,6 @@ public class MyWorld {
         if (!getSquare(x, y).isObstacle()) {
             agentX = x;
             agentY = y;
-        }
-        else {
-            agent.blocked = true;
         }
     }
 

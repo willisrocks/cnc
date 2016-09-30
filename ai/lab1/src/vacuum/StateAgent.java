@@ -1,185 +1,127 @@
 package vacuum;
-import java.util.Arrays;
+import java.util.*;
+import java.util.stream.IntStream;
 
-/** An agent for the vacuum world. */
-public class StateAgent extends AbstractAgent{
+/** An agent for the	vacuum world. */
+public class StateAgent extends	AbstractAgent{
+    public final List<Action> ACTIONS =
+            Arrays.asList(Action.UP, Action.RIGHT, Action.DOWN, Action.LEFT);
+    public ArrayList<Action> lastActions = new ArrayList<>();
+    public ArrayList<Action> weightedActionList = new ArrayList<>(100);
+    public ArrayList<Action> cleanWeightedActionList = new ArrayList<>(100);
+    public Hashtable<Action, Integer> weights = new Hashtable<>();
+    public Hashtable<Action, Integer> cleanWeights = new Hashtable<>();
+    public boolean lastActionClean = false;
 
-    public boolean blocked = false;
-    public Square NORTH, EAST, SOUTH, WEST;
-    public int lastDir = -1;
-    public Square CURRENT;
-
+    /**
+     * Creates a new StateAgent object
+     */
     public StateAgent() {
-//        this.lastActions[0] = Action.LEFT;
-        this.NORTH = new Square();
-        this.NORTH.setDirty(true);
-        this.EAST = new Square();
-        this.EAST.setDirty(true);
-        this.SOUTH = new Square();
-        this.SOUTH.setDirty(true);
-        this.WEST = new Square();
-        this.WEST.setDirty(true);
-        this.CURRENT = new Square();
-        this.CURRENT.setDirty(false);
+        setup();
     }
 
-/**
-     * Returns the agent's action in response to the dirtiness state of the
-     * current square.
+    /**
+     *	Returns the	agent's action	in	response	to	the dirtiness state of the
+     *	current square.
      */
-    public  Action react(boolean dirty) {
-        if (dirty) {
+    public  Action	react(boolean dirty)	{
+        Action dir = Action.LEFT; // default direction
+
+        if	(dirty) {
+            // I'm dirty. Let's SUCK!
+            lastActionClean = true;
             return Action.SUCK;
         }
-//        return Action.LEFT;
-        if (this.lastDir > -1) {
-            this.chooseDir();
-        }
-        else if (this.lastDir == 0) {
-            if (this.blocked) {
-                this.NORTH.setObstacle(true);
-            }
-            else {
-                this.NORTH.setDirty(false);
-            }
-            return Action.DOWN;
-        }
-        else if (this.lastDir == 1) {
-            if (this.blocked) {
-                this.EAST.setObstacle(true);
-            }
-            else {
-                this.EAST.setDirty(false);
-            }
-            return Action.LEFT;
-        }
-        else if (this.lastDir == 2) {
-            if (this.blocked) {
-                this.SOUTH.setObstacle(true);
-            }
-            else {
-                this.SOUTH.setDirty(false);
-            }
-            return Action.UP;
-        }
-        else if (this.lastDir == 3) {
-            if (this.blocked) {
-                this.WEST.setObstacle(true);
-            }
-            else {
-                this.WEST.setDirty(false);
-            }
-            return Action.RIGHT;
-        }
-       return this.chooseDir();
-    }
-
-    public Action chooseDir() {
-        if (this.NORTH.isDirty() && !this.NORTH.isObstacle()) {
-            this.lastDir = 0;
-            return Action.UP;
-        }
-        else if (this.EAST.isDirty() && !this.EAST.isObstacle()) {
-            this.lastDir = 1;
-            return Action.RIGHT;
-        }
-        else if (this.SOUTH.isDirty() && !this.SOUTH.isObstacle()) {
-            this.lastDir = 2;
-            return Action.DOWN;
-        }
-        else if (this.WEST.isDirty() && !this.WEST.isObstacle()) {
-            this.lastDir = 3;
-            return Action.LEFT;
+        else if (lastActionClean) {
+            // I just cleaned something, let's keep going that direction
+            dir = vacuum.Utility.getRandomItem(cleanWeightedActionList);
+            updateCleanWeights();
         }
         else {
-            this.lastDir = -1;
-            return Action.LEFT;
+            // Otherwise, let's go random
+            dir = vacuum.Utility.getRandomItem(weightedActionList);
+            updateWeights();
         }
+        lastActions.add(dir);
+        lastActionClean = false;
+        return dir;
     }
 
-    public void updateDir(Square dir) {
-        if (this.blocked) {
-           dir.setObstacle(true);
-        }
-        else {
-            dir.setDirty(false);
-        }
+    /**
+     * Initial state setup
+     */
+    private void setup() {
+        ACTIONS.forEach(action -> {
+            weights.put(action, 25);
+            cleanWeights.put(action, 25);
+            weightedActionList.add(action);
+            cleanWeightedActionList.add(action);
+        });
+        lastActions.add(Action.LEFT);
     }
 
-//    public boolean[][] localGridSouth() {
-//        boolean[][] results = { {true, true, true}, {true, true, true}, {false, false, false}};
-//        return results;
-//    }
-//    public boolean[][] localGridNorth() {
-//        boolean[][] results = { {false, false, false}, {true, true, true}, {true, true, true}};
-//        return results;
-//    }
-//
-//    public boolean[][] localGridWest() {
-//        boolean[][] results = { {false, true, true}, {false, true, true}, {false, true, true} };
-//        return results;
-//    }
-//
-//    public boolean[][] localGridEast() {
-//        boolean[][] results = { {true, true, false}, {true, true, false}, {true, true, false} };
-//        return results;
-//    }
-//
-    public void printDir(Square dir) {
-        if (dir.isObstacle()) {
-            System.out.print("X");
-        }
-        else if (dir.isDirty()) {
-            System.out.print("?");
-        }
-        else {
-            System.out.print("C");
-        }
+    /**
+     * Creates a weightedActionList from
+     * action weights that can be used to
+     * get random, weighted actions
+     */
+    public void createWeightedActionList(Hashtable<Action, Integer> table, ArrayList list) {
+        list.clear();
+        ACTIONS.forEach(action -> fillWeightedActions(action, table, list));
     }
 
-    public void printLocalGrid() {
-        System.out.print("  ");
-        printDir(this.NORTH);
-        System.out.println("  ");
-        printDir(this.WEST);
-        System.out.print(" O ");
-        printDir(this.EAST);
-        System.out.print("\n");
-        System.out.print("  ");
-        printDir(this.SOUTH);
-        System.out.println("  ");
+    /**
+     * Fills a weighted arraylist
+     * with individual actions
+     */
+    public void fillWeightedActions(Action action, Hashtable<Action, Integer> table, ArrayList list) {
+        IntStream.rangeClosed(1, table.get(action))
+                .forEach($ -> list.add(action));
     }
 
-    public static void main(String[] args) {
-        StateAgent agent = new StateAgent();
-        agent.printLocalGrid();
-//        agent.printLocalGrid(agent.localGrid);
-//        StateAgent agent = new StateAgent();
-//        System.out.println("South");
-//        agent.localGrid = agent.localGridSouth();
-//        agent.printLocalGrid(agent.localGrid);
-//
-//        System.out.println("North");
-//        agent.localGrid = agent.localGridNorth();
-//        agent.printLocalGrid(agent.localGrid);
-//
-//        System.out.println("West");
-//        agent.localGrid = agent.localGridWest();
-//        agent.printLocalGrid(agent.localGrid);
-//
-//        System.out.println("East");
-//        agent.localGrid = agent.localGridEast();
-//        agent.printLocalGrid(agent.localGrid);
+    /**
+     * Updates new weights
+     * from updated lastActions list
+     */
+    public void updateWeights() {
+        ACTIONS.forEach(action -> weights.put(action, getWeight(action)));
+        createWeightedActionList(weights, weightedActionList);
     }
 
-//    public void printLastActions() {
-//        for (int i=0; i < this.lastActions.length; i++) {
-//            System.out.println(this.lastActions[i]);
-//        }
-//    }
+    /**
+     * Calculates new weight for
+     * Action from updated lastActions list
+     */
+    public int getWeight(Action action) {
+        int freq = Collections.frequency(lastActions, action);
+        int size = lastActions.size();
+        double weight = ((double)freq / (double)size * 100.0);
+        return (int)Math.abs(Math.round(weight) - 100);
+    }
 
-//    public Action[] getLastActions() {
-//       return lastActions;
-//    }
+    /**
+     * Update clean weights table
+     */
+    public void updateCleanWeights() {
+        ACTIONS.forEach(action -> cleanWeights.put(action, getCleanWeight(action)));
+        createWeightedActionList(cleanWeights, cleanWeightedActionList);
+    }
+
+    /**
+     * Calculate clean weight
+     */
+    public int getCleanWeight(Action action) {
+        if (action == getLastAction()) {
+            return 94;
+        }
+        return 2;
+    }
+
+    /**
+     * Get the last action
+     */
+    public Action getLastAction() {
+        return lastActions.get(lastActions.size() - 1);
+    }
 
 }
