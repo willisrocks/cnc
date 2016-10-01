@@ -16,10 +16,11 @@ public class MyWorld {
         int sum = 0;
         for (int i = 0; i < 100; i++) {
             World world = new World(25);
-            AbstractAgent agent = new SpiralAgent();
+//            AbstractAgent agent = new SpiralAgent();
 //            AbstractAgent agent = new StateAgent();
 //            AbstractAgent agent = new RandomAgent();
 //            AbstractAgent agent = new ReflexAgent();
+            AbstractAgent agent = new MySpiralAgent();
             sum += world.simulate(agent, 10000);
         }
         System.out.println(sum / 100);

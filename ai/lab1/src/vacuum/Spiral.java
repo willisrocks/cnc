@@ -4,8 +4,11 @@ import java.util.Random;
 /**
  * Created by chris on 9/30/16.
  */
-public class Spiral {
+public class Spiral implements IVacuumStrategy {
     private Action[] sequence = new Action[8];
+    private int pos = 0;
+    private int max = sequence.length;
+
     private final Action[] NW = {
             Action.UP, Action.RIGHT, Action.DOWN, Action.DOWN, Action.LEFT, Action.LEFT, Action.UP, Action.UP
     };
@@ -24,9 +27,23 @@ public class Spiral {
         this.sequence = randSequence();
     }
 
-    public Action[] getSequence() {
-        return sequence;
+    public boolean hasNext() {
+        if (pos < max) {
+            return true;
+        }
+        return false;
     }
+
+    public Action getNext() {
+        Action action = sequence[pos];
+        pos++;
+        return action;
+    }
+
+
+//    public Action[] getSequence() {
+//        return sequence;
+//    }
 
     private Action[] randSequence() {
         Random gen = new Random();

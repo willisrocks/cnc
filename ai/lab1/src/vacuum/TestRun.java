@@ -13,11 +13,16 @@ public class TestRun {
      * total score.
      */
     public static void main(String[] args) {
-//        StateAgent agent = new StateAgent();
-//        Action[] lastActions = agent.getLastActions();
-//        for (int i=0; i < lastActions.length; i++) {
-//            System.out.println(lastActions[i]);
-//        }
+        MySpiralAgent agent = new MySpiralAgent();
+        System.out.println(MySpiralAgent.strategy);
+        agent.react(false);
+        agent.react(false);
+        agent.react(false);
+        agent.react(false);
+        agent.react(true);
+
+
+
 
     }
 }
