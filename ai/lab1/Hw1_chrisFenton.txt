@@ -1,0 +1,23 @@
+Chris Fenton
+CNC - AI
+Homework 1
+
+2. What is the definition of rational agent given in the book?
+
+The book's definition:
+
+For each possible percept sequence, a rational agent should select an action that is expected to maximize its performance measure, given the evidence provided by the percept sequence and whatever built-in knowledge the agent has.
+
+In other words, given the information available, a rational agent maximizes its average score.
+
+3.
+
+  1.15. Various subfields of AI have held contests by defining a standard task and inviting researchers to do their best Examples include the DARPA Grand Challenge for robotic cars, The International Planning Competition, the Robocup robotic soccer league, the TREC information retrieval event, and contests in machine translation, speech recognition. Investigate five of these contests, and describe the progress made over the years. To what degree have the contests advanced toe state of the art in Al? Do what degree do they hurt the field by drawing energy away from new ideas?
+
+  It's hard to measure the impact the DARPA Grand Challenge had on the field of driverless cars, but the gains made between the first contest held in 2004 and the second contest in 2005 and proliferation of the field as seen today are a good indication that the contest helped drive progress in the field. We're on the verge of legal autonomous vehicles in the state of California. I'm hard pressed to find how the contest hurt the field as the amount of progress made since the contest has been staggering.
+
+  2.1. Suppose that the performance measure is concerned with just the first T time steps of the environment and ignores everything thereafter. Show that a rational agcnt'a action may depend not just on the state of the environment but also on the time step it has reached.
+
+  One example I can think of is a robot crossing the street. It might make sense to time a walk sign, for example, and use that timing when crossing the street and future streets.
+
+

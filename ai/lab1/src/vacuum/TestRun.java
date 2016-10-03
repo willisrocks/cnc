@@ -1,6 +1,5 @@
 package vacuum;
 
-import static vacuum.Action.*;
 import java.util.Random;
 
 
@@ -13,8 +12,8 @@ public class TestRun {
      * total score.
      */
     public static void main(String[] args) {
-        MySpiralAgent agent = new MySpiralAgent();
-        System.out.println(MySpiralAgent.strategy);
+        StateAgent agent = new StateAgent();
+        System.out.println(StateAgent.strategy);
         agent.react(false);
         agent.react(false);
         agent.react(false);

@@ -4,20 +4,21 @@ import java.util.Random;
 /** An agent for the	vacuum world. */
 public class RandomAgent extends	AbstractAgent{
 
-   
-
 /**
- *	Returns the	agent's action	in	response	to	the dirtiness state of the
+ *	Returns the	agent's action in response to the dirtiness state of the
  *	current square.
  */
    public  Action	react(boolean dirty)	{
    	if	(dirty) {
    		return Action.SUCK;
       }
-   return rand();
+   return randomAction();
    }
-   
-   private Action rand() {
+
+   /**
+    *	Returns a random action.
+    */
+   private Action randomAction() {
       Random gen = new Random();
       int randInt = gen.nextInt(4);
       switch (randInt) {

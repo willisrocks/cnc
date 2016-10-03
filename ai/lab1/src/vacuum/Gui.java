@@ -33,7 +33,7 @@ public class Gui {
 	/** Creates the world and agent, then animates them forever. */
 	public static void main(String[] args) {
 		World world = new World(25);
-		AbstractAgent agent = new MySpiralAgent();
+		AbstractAgent agent = new StateAgent();
 		StdDraw.setScale(0, world.getWidth());
 		StdDraw.show(0); // Wait until everything is drawn before first display
 		draw(world);

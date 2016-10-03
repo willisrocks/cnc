@@ -5,7 +5,7 @@ import java.util.Random;
 
 
 /** The vacuum world. */
-public class MyWorld {
+public class NastyWorld {
     static Random rand = new Random();
 
     /**
@@ -16,10 +16,6 @@ public class MyWorld {
         int sum = 0;
         for (int i = 0; i < 100; i++) {
             World world = new World(25);
-//            AbstractAgent agent = new SpiralAgent();
-//            AbstractAgent agent = new StateAgent();
-//            AbstractAgent agent = new RandomAgent();
-//            AbstractAgent agent = new ReflexAgent();
             AbstractAgent agent = new StateAgent();
             sum += world.simulate(agent, 10000);
         }
@@ -35,7 +31,7 @@ public class MyWorld {
     /** The squares in the world. */
     private Square[][] squares;
 
-    public MyWorld(int width) {
+    public NastyWorld(int width) {
         // Create the squares
         squares = new Square[width][width];
         for (int x = 0; x < width; x++) {
@@ -83,8 +79,18 @@ public class MyWorld {
                 if (rand.nextFloat() < 0.5) {
                     square.setDirty(true);
                 }
-                if (rand.nextFloat() < 0.1) {
-                    square.setObstacle(true);
+            }
+        }
+        // Fill obstacles in a nasty manner
+        for (int x = 1; x < width - 1; x++) {
+            for (int y = 1; y < width - 1; y++) {
+                if ((x % 2 != 0) && (y % 3 == 0)) {
+                    Square s1 = squares[x - 1][y];
+                    s1.setObstacle(true);
+                    Square s2 = squares[x][y];
+                    s2.setObstacle(true);
+                    Square s3 = squares[x][y + 1];
+                    s3.setObstacle(true);
                 }
             }
         }
