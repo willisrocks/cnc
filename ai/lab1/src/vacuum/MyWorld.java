@@ -20,7 +20,7 @@ public class MyWorld {
 //            AbstractAgent agent = new StateAgent();
 //            AbstractAgent agent = new RandomAgent();
 //            AbstractAgent agent = new ReflexAgent();
-            AbstractAgent agent = new StateAgent();
+            AbstractAgent agent = new SensorAgent();
             sum += world.simulate(agent, 10000);
         }
         System.out.println(sum / 100);
@@ -125,23 +125,33 @@ public class MyWorld {
         } else if (action == UP) {
             if (agentY < getWidth() - 1) {
                 y++;
+            } else {
+                agent.sense_obstacle(true);
             }
         } else if (action == DOWN) {
             if (agentY > 0) {
                 y--;
+            } else {
+                agent.sense_obstacle(true);
             }
         } else if (action == LEFT) {
             if (agentX > 0) {
                 x--;
+            } else {
+                agent.sense_obstacle(true);
             }
         } else if (action == RIGHT) {
             if (agentX < getWidth() - 1) {
                 x++;
+            } else {
+                agent.sense_obstacle(true);
             }
         }
         if (!getSquare(x, y).isObstacle()) {
             agentX = x;
             agentY = y;
+        } else {
+            agent.sense_obstacle(true);
         }
     }
 

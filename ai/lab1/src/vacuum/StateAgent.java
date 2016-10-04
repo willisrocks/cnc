@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /** An agent for the vacuum world. */
 public class StateAgent extends AbstractAgent{
-    static IVacuumStrategy strategy = new Spiral();
+    static IVacuumStrategy strategy = new SpiralOld();
     private ArrayList<Action> history = new ArrayList<>(10000);
 
     /**
@@ -48,9 +48,9 @@ public class StateAgent extends AbstractAgent{
      */
     private IVacuumStrategy getNewStrategy() {
         if (tooClean()) {
-            return new Diagonal();
+            return new DiagonalOld();
         }
-        return new Spiral();
+        return new SpiralOld();
     }
 
     /**
@@ -66,6 +66,10 @@ public class StateAgent extends AbstractAgent{
             }
         }
         return true;
+    }
+
+    public void sense_obstacle(boolean isObstacle) {
+
     }
 
 }

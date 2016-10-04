@@ -4,7 +4,7 @@ package vacuum;
 public class MyGui {
 
     /** Draws the current state of  world. */
-    public static void draw(World world) {
+    public static void draw(MyWorld world) {
         StdDraw.clear();
         for (int x = 0; x < world.getWidth(); x++) {
             for (int y = 0; y < world.getWidth(); y++) {
@@ -32,8 +32,8 @@ public class MyGui {
 
     /** Creates the world and agent, then animates them forever. */
     public static void main(String[] args) {
-        World world = new World(25);
-        AbstractAgent agent = new StateAgent();
+        MyWorld world = new MyWorld(25);
+        AbstractAgent agent = new SensorAgent();
         StdDraw.setScale(0, world.getWidth());
         StdDraw.show(0); // Wait until everything is drawn before first display
         draw(world);

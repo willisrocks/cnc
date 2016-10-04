@@ -9,4 +9,10 @@ public abstract class AbstractAgent {
 	 */
 	public abstract Action react(boolean dirty);
 
+	/**
+	 * senses whether the vacuum hit an object or the wall
+	 * returns true if it did, false if not
+     */
+	 public abstract void sense_obstacle(boolean isObstacle);
+
 }

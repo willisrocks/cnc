@@ -5,17 +5,22 @@ import java.util.Random;
 /**
  * Created by chris on 9/30/16.
  */
-public class Diagonal implements IVacuumStrategy{
+public class DiagonalStrategy implements IVacuumStrategy{
     private Action[] sequence = new Action[24];
-    private int pos = 0;
+    static int pos = 0;
     private int max = sequence.length;
 
-    private final Action[] NW = createDiagonal(Action.UP, Action.LEFT);
-    private final Action[] NE = createDiagonal(Action.UP, Action.RIGHT);
-    private final Action[] SE = createDiagonal(Action.DOWN, Action.RIGHT);
-    private final Action[] SW = createDiagonal(Action.DOWN, Action.LEFT);
+//    private final Action[] NW = createDiagonal(Action.UP, Action.LEFT);
+//    private final Action[] NE = createDiagonal(Action.UP, Action.RIGHT);
+//    private final Action[] SE = createDiagonal(Action.DOWN, Action.RIGHT);
+//    private final Action[] SW = createDiagonal(Action.DOWN, Action.LEFT);
 
-    public Diagonal() {
+    private final Action[] NW = {Action.UP, Action.LEFT, Action.UP, randDirection()};
+    private final Action[] NE = {Action.UP, Action.RIGHT, Action.UP, randDirection()};
+    private final Action[] SE = {Action.DOWN, Action.RIGHT, Action.DOWN, randDirection()};
+    private final Action[] SW = {Action.DOWN, Action.LEFT, Action.DOWN, randDirection()};
+
+    public DiagonalStrategy() {
         this.sequence = randSequence();
     }
 
@@ -27,7 +32,7 @@ public class Diagonal implements IVacuumStrategy{
     }
 
     public Action getNext() {
-        Action action = sequence[pos];
+        Action action = sequence[pos % sequence.length];
         pos++;
         return action;
     }

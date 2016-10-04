@@ -4,15 +4,15 @@ import java.util.Random;
 /** An agent for the	vacuum world. */
 public class RandomAgent extends	AbstractAgent{
 
-/**
- *	Returns the	agent's action in response to the dirtiness state of the
- *	current square.
- */
+   /**
+    *	Returns the	agent's action in response to the dirtiness state of the
+    *	current square.
+    */
    public  Action	react(boolean dirty)	{
-   	if	(dirty) {
-   		return Action.SUCK;
+      if	(dirty) {
+         return Action.SUCK;
       }
-   return randomAction();
+      return randomAction();
    }
 
    /**
@@ -28,6 +28,10 @@ public class RandomAgent extends	AbstractAgent{
          case 3: return Action.DOWN;
       }
       return Action.LEFT;
+   }
+
+   public void sense_obstacle(boolean isObstacle){
+
    }
 
 }
