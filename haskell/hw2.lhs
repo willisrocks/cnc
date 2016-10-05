@@ -58,4 +58,9 @@ Follow the following "pipeline" analysis when defining your function
 
 > toAsci xs = map ord xs
 > toDigit xs = map (subtract 48) xs
+> powersOf10 n = [10^x | x <- [0..(n - 1)]]
+> toTuple xs = zip xs (reverse (powersOf10 (length xs)))
+> tupleToNumber (x,y) = x * y
+> tuplesToNumberList xs = map tupleToNumber xs
+> stringToInt xs = sum (tuplesToNumberList (toTuple (toDigit (toAsci xs)))) 
 
