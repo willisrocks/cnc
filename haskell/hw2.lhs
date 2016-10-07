@@ -56,11 +56,9 @@ Follow the following "pipeline" analysis when defining your function
 "167"  --> ['1','6','7'] --> [49,54,55] --> [1,6,7] --> [(1,100),(6,10),(7,1)]--> [100, 60, 7] --> 167
 (hint: the first function in the pipeline is very simple. why?)
 
-> toAsci xs = map ord xs
-> toDigit xs = map (subtract 48) xs
-> powersOf10 n = [10^x | x <- [0..(n - 1)]]
-> toTuple xs = zip xs (reverse (powersOf10 (length xs)))
-> tupleToNumber (x,y) = x * y
-> tuplesToNumberList xs = map tupleToNumber xs
-> stringToInt xs = sum (tuplesToNumberList (toTuple (toDigit (toAsci xs)))) 
-
+> string2int xs = sum . f . g . h . j $ xs where
+>   f xs = map (\(x,y) -> x * y) xs
+>   g xs = zip xs (reverse . powersOf10 . length $ xs)
+>   h xs = map (subtract 48) xs
+>   j xs = map ord xs
+>   powersOf10 n = [10^x | x <- [0..(n - 1)]]
