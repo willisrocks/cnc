@@ -1,0 +1,65 @@
+Chris Fenton
+CNC - AI
+Homework 2
+
+
+2.2 Let us examine the rationality of various vacuum-cleaner agent functions.
+a. Show that the simple vacuum-cleaner agent function described in Figure 2.3 is indeed rational under the assumptions listed on page 38.
+
+Let’s look at the case where both squares are dirty: The agent will spawn in one of the two squares. Let’s say the agent spawns in the Left square. Since the square is dirty, the agent will suck and its score will be 1 point after 1 step. The agent will then move right and its score will be 1 + 1 = 2 after 2 steps. The agent is now in the right square and it’s dirty, so the agent will suck and its score will 1 + 1 + 2 = 4 after 3 steps. Since all the squares are now clean, the agent will ping-pong between the two squares each turn for the duration of the 1000 time steps. So the score after step 3 will get added to the sum for 997 steps bringing the total up to 3992. Since the agent got the best possible score after three turns (suck -> move -> suck) and the score is additive after each turn, there is no way to get a better score.
+b. Describe a rational agent function for the case in which each movement costs one point Does the corresponding agent program require internal state?
+
+It doesn’t require internal state, but it will need it in order to be rational. If it stops moving after both the square are clean (it will need state for that) it will maximize its score. If there was a NULL or NOMOVE action, it would then fire that for the next 997 steps. In the original problem, you would have to just keep sucking the last clean square instead of moving.
+c. Discuss possible agent designs for the cases in which clean squares can become dirty and the geography of the environment is unknown. Does it make sense for the agent to learn from its experience in these cases? If so, what should it learn? If not, why not?
+
+I think it depends on whether square accumulate dirt in a random or patterned way. If squares become dirty in a random fashion, you could keep applying your normal strategy; however, if the squares become dirty in some sort of pattern, you could learn from that pattern and adjust accordingly.
+
+2.13 The vacuum environments in the preceding exercises have all been deterministic. Discuss possible agent programs for each of the following stochastic versions:
+a. Murphy's law: twenty-five percent of the time, the Suck action fails to clean the floor if it is dirty and deposits dirt unto the floor if the floor is clean. How is your agent program affected if the dirt sensor gives the wrong answer 10% of the time?
+
+In this case, you’ll never know if a square is clean.
+b. Small children: At each time step, each clean square has a 10% chance of becoming dirty. Can you come up with a rational agent design for this case?
+
+In this case, with only 2 squares, you’ll clean a new, dirty square within 3 moves. On average, a clean square will become dirty in 10 steps. With 2 clean squares, a new, dirty square will be introduced in 5 steps on average. You should still stay on top of all the dirty squares and maximize your score (with the original assumption that doesn’t penalize you for each move).
+
+
+5.1 Draw a search tree with depth = 3, where every node has degree 3, and the goal is a leaf node
+
+                +----------------------------------+0+----------------------------------+
+                |                                   +                                   |
+                +                                   +                                   +
+    +----------+1+----------+           +----------+2+----------+           +----------+3+----------+
+    |           +           |           |           +           |           |           +           |
+    +           +           +           +           +           +           +           +           +
++--+4+---+   +-+5+--+    +-+6+--+    +-+7+--+    +-+8+--+    +-+9+--+    +-+10+-+    +-+11+-+    +-+12+-+
+|   +    |   |  +   |    |  +   |    |  +   |    |  +   |    |  +   |    |  +   |    |  +   |    |  +   |
++   +    +   +  +   +    +  +   +    +  +   +    +  +   +    +  +   +    +  +   +    +  +   +    +  +   +
+13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39
+                                                                                                        ^
+                                                                                                        +
+                                                                                                       goal
+
+5.2 Draw the worst case location of the goal for BFS.
+
+                +----------------------------------+0+----------------------------------+
+                |                                   +                                   |
+                +                                   +                                   +
+    +----------+1+----------+           +----------+2+----------+           +----------+3+----------+
+    |           +           |           |           +           |           |           +           |
+    +           +           +           +           +           +           +           +           +
++--+4+---+   +-+5+--+    +-+6+--+    +-+7+--+    +-+8+--+    +-+9+--+    +-+10+-+    +-+11+-+    +-+12+-+
+|   +    |   |  +   |    |  +   |    |  +   |    |  +   |    |  +   |    |  +   |    |  +   |    |  +   |
++   +    +   +  +   +    +  +   +    +  +   +    +  +   +    +  +   +    +  +   +    +  +   +    +  +   +
+13  14  15  16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38  39
+                                                                                                        ^
+                                                                                                        +
+                                                                                                       bfs worst case
+
+
+5.3 Draw the state of the queue when BFS reaches the goal.
+
+The queue is going to be empty because 39 is the last node added to the queue and is a leaf node.
+
+5.4 What is the largest size for the queue?
+
+27
