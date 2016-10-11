@@ -15,9 +15,11 @@ public class Experiment {
 					instances[depth][i] = problem.scramble(depth);
 				}
 			}
-			for (Searcher searcher : new Searcher[] {
-					new BreadthFirstSearcher(),
-					new AStarSearcher() }) {
+			for (Searcher searcher : new Searcher[]{
+					new BreadthFirstSearcher()}) {
+
+//					new BreadthFirstSearcher(),
+//					new AStarSearcher() }) {
 				try {
 					System.out.println(searcher.getClass().getSimpleName());
 					for (int depth = 1; depth < instances.length; depth++) {
