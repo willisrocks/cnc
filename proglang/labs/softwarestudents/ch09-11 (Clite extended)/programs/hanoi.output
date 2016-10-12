@@ -1,0 +1,215 @@
+Begin parsing... programs/hanoi.cpp
+
+Program (abstract syntax): 
+  globals: 
+    {}
+  Functions: 
+    Function = moveTower; Return type = void
+      params = 
+        {<disks, int>, <start, char>, <end, char>, <temp, char>}
+      locals = 
+        {}
+      Block: 
+        Conditional: 
+          Binary: 
+            Operator: ==
+            Variable: disks
+            Value: 1
+          Skip: 
+          Block: 
+            Call: moveTower
+              args = 
+                Binary: 
+                  Operator: -
+                  Variable: disks
+                  Value: 1
+                Variable: start
+                Variable: temp
+                Variable: end
+            Call: moveTower
+              args = 
+                Binary: 
+                  Operator: -
+                  Variable: disks
+                  Value: 1
+                Variable: temp
+                Variable: end
+                Variable: start
+
+    Function = main; Return type = int
+      params = 
+        {}
+      locals = 
+        {<totalDisks, int>}
+      Block: 
+        Assignment: 
+          Variable: totalDisks
+          Value: 3
+        Call: moveTower
+          args = 
+            Variable: totalDisks
+            Value: A
+            Value: B
+            Value: C
+
+
+Begin type checking...programs/hanoi.cpp
+Globals = {}
+Function moveTower = 
+{    <disks, int>, 
+   <main, int, {}>, 
+   <end, char>, 
+   <temp, char>, 
+   <start, char>, 
+   <moveTower, void, {<disks, int>, <start, char>, <end, char>, <temp, char>}> }
+
+Function main = 
+{    <main, int, {}>, 
+   <totalDisks, int>, 
+   <moveTower, void, {<disks, int>, <start, char>, <end, char>, <temp, char>}> }
+
+No type errors
+
+Begin interpreting...programs/hanoi.cpp
+
+Entering main:
+   Globals and top frame:
+    ----------
+    <totalDisks, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 3>
+    <start, A>
+    <end, B>
+    <temp, C>
+    <moveTower, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 2>
+    <start, A>
+    <end, C>
+    <temp, B>
+    <moveTower, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, A>
+    <end, B>
+    <temp, C>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, A>
+    <end, B>
+    <temp, C>
+    <moveTower, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, B>
+    <end, C>
+    <temp, A>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, B>
+    <end, C>
+    <temp, A>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 2>
+    <start, A>
+    <end, C>
+    <temp, B>
+    <moveTower, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 2>
+    <start, C>
+    <end, B>
+    <temp, A>
+    <moveTower, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, C>
+    <end, A>
+    <temp, B>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, C>
+    <end, A>
+    <temp, B>
+    <moveTower, undefined>
+    ----------
+Calling moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, A>
+    <end, B>
+    <temp, C>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 1>
+    <start, A>
+    <end, B>
+    <temp, C>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 2>
+    <start, C>
+    <end, B>
+    <temp, A>
+    <moveTower, undefined>
+    ----------
+Returning moveTower
+   Globals and top frame:
+    ----------
+    <disks, 3>
+    <start, A>
+    <end, B>
+    <temp, C>
+    <moveTower, undefined>
+    ----------
+Leaving main:
+   Globals and top frame:
+    ----------
+    <totalDisks, 3>
+    ----------
+
+Final State
+   Globals and top frame:
+    ----------
+    ----------

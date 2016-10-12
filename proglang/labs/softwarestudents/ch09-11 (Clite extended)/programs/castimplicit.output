@@ -1,0 +1,51 @@
+Begin parsing... programs/castimplicit.cpp
+
+Program (abstract syntax): 
+  globals: 
+    {}
+  Functions: 
+    Function = main; Return type = int
+      params = 
+        {}
+      locals = 
+        {<n, int>, <i, int>, <f, float>}
+      Block: 
+        Assignment: 
+          Variable: n
+          Value: 3
+        Assignment: 
+          Variable: i
+          Value: 0
+        Assignment: 
+          Variable: f
+          Value: 1.0
+        Loop: 
+          Binary: 
+            Operator: <
+            Variable: i
+            Variable: n
+          Block: 
+            Assignment: 
+              Variable: i
+              Binary: 
+                Operator: +
+                Variable: i
+                Value: 1
+            Assignment: 
+              Variable: f
+              Binary: 
+                Operator: *
+                Variable: f
+                Variable: i
+
+
+Begin type checking...programs/castimplicit.cpp
+
+Type map:
+Globals = {}
+Function main = 
+{    <main, int, {}>, 
+   <i, int>, 
+   <f, float>, 
+   <n, int> }
+Type error

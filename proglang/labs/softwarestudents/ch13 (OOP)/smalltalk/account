@@ -1,0 +1,24 @@
+Object subclass: #Account
+	instanceVariableNames: 'bal'
+	classVariableNames:: ''
+	poolDictionaries: ''
+	
+new
+	"Constructor"
+	^ (super new) init
+
+init
+	"Private instance method"
+	bal := 0
+	
+balance
+	^ bal
+	
+deposit: amount
+	(amount < 0) ifTrue: [ ^ self error: 'Invalid amount' ].
+	bal := bal + amount
+	
+withdraw: amount
+	(amount < 0) ifTrue: [ ^ self error: 'Invalid amount' ].
+	(bal < amount) ifTrue: [ ^ self error: 'Insufficient funds' ].
+	bal := bal - amount

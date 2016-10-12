@@ -1,0 +1,38 @@
+Begin parsing... programs/convert.cpp
+
+Program (abstract syntax): 
+  globals: 
+    {}
+  Functions: 
+    Function = main; Return type = int
+      params = 
+        {}
+      locals = 
+        {<f, float>, <i, int>, <c, char>}
+      Block: 
+        Assignment: 
+          Variable: c
+          Value: a
+        Assignment: 
+          Variable: i
+          Value: 77
+        Assignment: 
+          Variable: f
+          Binary: 
+            Operator: -
+            Variable: i
+            Unary: 
+              Operator: int
+              Variable: c
+
+
+Begin type checking...programs/convert.cpp
+
+Type map:
+Globals = {}
+Function main = 
+{    <main, int, {}>, 
+   <i, int>, 
+   <f, float>, 
+   <c, char> }
+Type error

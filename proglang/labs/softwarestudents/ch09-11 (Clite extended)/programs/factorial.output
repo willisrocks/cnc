@@ -1,0 +1,74 @@
+Begin parsing... programs/factorial.cpp
+
+Program (abstract syntax): 
+  globals: 
+    {}
+  Functions: 
+    Function = main; Return type = int
+      params = 
+        {}
+      locals = 
+        {<n, int>, <i, int>, <f, int>}
+      Block: 
+        Assignment: 
+          Variable: n
+          Value: 3
+        Assignment: 
+          Variable: i
+          Value: 1
+        Assignment: 
+          Variable: f
+          Value: 1
+        Loop: 
+          Binary: 
+            Operator: <
+            Variable: i
+            Variable: n
+          Block: 
+            Assignment: 
+              Variable: i
+              Binary: 
+                Operator: +
+                Variable: i
+                Value: 1
+            Assignment: 
+              Variable: f
+              Binary: 
+                Operator: *
+                Variable: f
+                Variable: i
+
+
+Begin type checking...programs/factorial.cpp
+
+Type map:
+Globals = {}
+Function main = 
+{    <main, int, {}>, 
+   <i, int>, 
+   <f, int>, 
+   <n, int> }
+
+No type errors
+
+Begin interpreting...programs/factorial.cpp
+
+Entering main:
+   Globals and top frame:
+    ----------
+    <n, undefined>
+    <i, undefined>
+    <f, undefined>
+    ----------
+Leaving main:
+   Globals and top frame:
+    ----------
+    <n, 3>
+    <i, 3>
+    <f, 6>
+    ----------
+
+Final State
+   Globals and top frame:
+    ----------
+    ----------

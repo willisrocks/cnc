@@ -1,0 +1,30 @@
+Begin parsing... programs/hello.cpp
+
+Program (abstract syntax): 
+  globals: 
+    {}
+  Functions: 
+    Function = main; Return type = int
+      params = 
+        {}
+      locals = 
+        {<c, char>, <i, int>}
+      Block: 
+        Assignment: 
+          Variable: c
+          Value: h
+        Assignment: 
+          Variable: i
+          Binary: 
+            Operator: +
+            Variable: c
+            Value: 3
+
+
+Begin type checking...programs/hello.cpp
+Globals = {}
+Function main = 
+{    <main, int, {}>, 
+   <i, int>, 
+   <c, char> }
+Type error

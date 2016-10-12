@@ -1,0 +1,38 @@
+Magnitude subclass: #Polynomial
+	instanceVariableNames: 'coefficient'
+	classVariableNames:: ''
+	poolDictionaries: ''
+	
+new
+	"Unary class constructor: return 0*x^0"
+	^ self new: #( 0 )
+	
+new: array
+	"Keyword class constructor"
+	^ (super new) init: array
+
+init: array
+	"Private: initialize coefficient instance variable"
+	coefficient := array deepCopy
+	
+degree
+	"Highest power with a non-zero coefficient"
+	^ coefficient size - 1
+	
+coefficient: power
+	"Coefficient of given power"
+	(power >= coefficient size) ifTrue: [ ^ 0 ].
+	^ coefficient at: power + 1
+	
+asArray
+	^ coefficient deepCopy
+	
+= aPoly
+	^ coefficient = aPoly asArray
+	
+!= aPoly
+	^ (self = aPoly) not	
+	
+< aPoly
+	"not defined"
+	^ self shouldNotImplement

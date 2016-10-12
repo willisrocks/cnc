@@ -1,0 +1,7 @@
+(define (subst x y alist)
+  (if (null? alist) ()
+      (let ((head (car alist)) (tail (cdr alist))
+           (if (equal? x head)
+               (cons y (subst x y tail))
+               (cons head (subst x y tail)) 
+))))

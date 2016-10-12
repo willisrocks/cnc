@@ -1,0 +1,5 @@
+Chris Fenton
+CNC - Proglang
+Lab 1
+
+I think it's failing in the Lexer.java file at line 96 with the token 'c'. The chkOpt method is stubbed out and return null when getting the Assignment token in the line c = 'h';.

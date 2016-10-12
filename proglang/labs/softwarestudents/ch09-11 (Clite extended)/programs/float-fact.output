@@ -1,0 +1,74 @@
+Begin parsing... programs/float-fact.cpp
+
+Program (abstract syntax): 
+  globals: 
+    {}
+  Functions: 
+    Function = main; Return type = int
+      params = 
+        {}
+      locals = 
+        {<n, float>, <i, float>, <f, float>}
+      Block: 
+        Assignment: 
+          Variable: n
+          Value: 3.0
+        Assignment: 
+          Variable: i
+          Value: 1.0
+        Assignment: 
+          Variable: f
+          Value: 1.0
+        Loop: 
+          Binary: 
+            Operator: <
+            Variable: i
+            Variable: n
+          Block: 
+            Assignment: 
+              Variable: i
+              Binary: 
+                Operator: +
+                Variable: i
+                Value: 1.0
+            Assignment: 
+              Variable: f
+              Binary: 
+                Operator: *
+                Variable: f
+                Variable: i
+
+
+Begin type checking...programs/float-fact.cpp
+
+Type map:
+Globals = {}
+Function main = 
+{    <main, int, {}>, 
+   <i, float>, 
+   <f, float>, 
+   <n, float> }
+
+No type errors
+
+Begin interpreting...programs/float-fact.cpp
+
+Entering main:
+   Globals and top frame:
+    ----------
+    <n, undefined>
+    <i, undefined>
+    <f, undefined>
+    ----------
+Leaving main:
+   Globals and top frame:
+    ----------
+    <n, 3.0>
+    <i, 3.0>
+    <f, 6.0>
+    ----------
+
+Final State
+   Globals and top frame:
+    ----------
+    ----------

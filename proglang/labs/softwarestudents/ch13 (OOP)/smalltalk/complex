@@ -1,0 +1,42 @@
+Object subclass: #Complex
+	instanceVariableNames: 'realpart imagpart'
+	classVariableNames:: ''
+	poolDictionaries: ''
+	
+new
+	"Unary constructor: invalid"
+	 ^ self error: 'use real:imaginary:'	 
+new: aComplex
+	"Class constructor: aComplex"
+	^ (super new) copy: aComplex
+real: r  imaginary: i
+	"Class constructor"
+	^ (super new)  setReal: r  setImaginary: i
+
+setReal: r  setImaginary: i
+	"Private instance method to initialize self"
+	realpart := r.
+	imagpart := i.
+	^ self
+real
+	"Return real part"
+	^ realpart
+imaginary
+	"Return imaginary part"
+	^ imagpart
++ val
+	"Return new complex number: self + val"
+	^ Complex real: realpart + val real
+		imaginary: imagpart + val imaginary
+- val
+	"Return new complex number: self - val"
+	^ self + val negated
+negated
+	"Return new complex number: - self"
+	^ Complex real: realpart negated imaginary: imagpart negated
+= val
+	"Return: self = val"
+	^ (realpart = val real) & (imagpart = val imaginary)
+< val
+	"Not mathematically defined"
+	^ self shouldNotImplement

@@ -1,0 +1,15 @@
+(define  (diff x  expr)
+  (if  (not (list?  expr))
+    (if  (equal?  x  expr)  1  0)
+    (let ((u (cadr expr)) (v (caddr expr)))
+       (case  (car  expr)
+	  ((+)  (list  '+  (diff  x  u) (diff  x  v)))
+          ((-)  (list  '-  (diff  x  u) (diff  x  v)))
+          ((*)  (list  '+  
+		           (list  '* u (diff x v))
+		           (list  '* v (diff  x  u))))
+          ((/)  (list  'div  (list  '-   
+		           (list  '* v (diff  x  u))
+		           (list  '* u (diff x v)))
+		           (list  '*  u v)))
+))))
