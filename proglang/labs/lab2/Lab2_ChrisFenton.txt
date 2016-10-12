@@ -1,0 +1,37 @@
+Chris Fenton
+CNC - Proglang
+Lab 2
+
+1. Read (again) the Lexer and Parser Software Overview to get an idea of the source code modules for the lexer and parser of Clite. Take note of the source files needed for the lexer alone.
+
+2. Examine the TokenType.java file and see if you can determine all the basic lexical units of Clite. The lexical units themselves are character strings of length one or more that cannot be further decomposed into smaller language units in any sensible way. These strings are sometimes called lexemes. Each lexeme has a "type" and a Token is a pair of (TokenType, lexeme String). Make a list of all the lexemes in the Clite programming language.
+
+Bool, Char, Else, False, Float, If, Int, Main, True, While, Eof, LeftBrace, RightBrace, LeftBracket, RightBracket, LeftParen, RightParen, Semicolon, Comma, Assign, Equals, Less, LessEqual, Greater, GreaterEqual, Not, NotEqual, Plus, Minus, Multiply, Divide, And, Or, Identifier, IntLiteral, FloatLiteral, CharLiteral
+
+3. List the sequence of lexemes in the clone.cpp program. See Clite Text Programs above.
+
+Int, Main, LeftParen, RightParen, LeftBrace, Int, CharLiteral, Comma, CharLiteral, Comma, CharLiteral, Comma, CharLiteral, Semicolon, CharLiteral, Assign, CharLiteral, Semicolon, CharLiteral, Assign, IntLiteral, Semicolon, CharLiteral, Assign, CharLiteral, Semicolon, CharLiteral, Assign, IntLiteral, Semicolon, RightBrace.
+
+4. Now list the sequence of Tokens for the clone.cpp program. See Clite Text Programs above.
+
+(Keyword, "int"), (Keyword, "main"), (Punctuation, "("), (Punctuation, ")"), (Punctuation, "{"), (Keyword, "int"), (Char, "a"), (Punctuation, ","), (Char, "b"), (Punctuation, ","), (Char, "c"), (Punctuation, ","), (Char, "d"), (Punctuation, ";"), (Char, "b"), (Operator, "="), (Char, "a"), (Punctuation, ";"), (Char, "b"), (Operator, "="), (Integer, "5"), (Punctuation, ";"), (Char, "d"), (Operator, "="), (Char, "c"), (Punctuation, ";"), (Char, "c"), (Operator, "="), (Integer, "7"), (Punctuation, ";"), (Punctuation, "}")
+
+5. List the sequence of Tokens for the factorial.cpp program.
+
+(Keyword, "int"), (Keyword, "main"), (Punctuation, "("), (Punctuation, ")"), (Punctuation, "{"), (Keyword, "int"), (Char, "n"), (Punctuation, ","), (Char "i"), (Punctuation, ","), (Char, "f"), (Punctuation, ";"), (Char, "n"), (Operator, "="), (Integer, "3"), (Punctuation, ";"), (Char, "i"), (Operator, "="), (Integer, "1"), (Punctuation, ";"), (Char, "f"), (Operator, "="), (Integer, "1"), (Punctuation, ";"), (Keyword, "while"), (Punctuation, "("), (Char, "i"), (Operator, "<"), (Char, "n"), (Punctuation, ")"), (Punctuation, "{"), (Char, "i"), (Operator, "="), (Char, "i"), (Operator, "+"), (Integer, "1"), (Punctuation, ";"), (Char, "f"), (Operator, "="), (Char, "f"), (Operator, "*"), (Char, "i"), (Punctuation, ";"), (Punctuation, "}"), (Punctuation, "}")
+
+6. Examine the top part of the Token.java file and see if you can understand the structure of a token object. Can you see both of its parts?
+
+It has 2 parts: the token type and the token value.
+
+7. Look at the Token constructor. Can you identify from the constructor code what the Clite reserved words are? How does the constructor code know when the lexeme is a reserved word? What is the special treatment of reserved words in the constructor?
+
+Everything listed before EOF in the TokenType enum is a keyword. The constructor checks if the current TokenType comes before EOF, and if it does, it adds its value to an array of of the resered words indexed by their enum values and adds the token object to the tokens array.
+
+8. What tokens require more involved code for construction? Why?
+
+I'm going to say keywords because of the process listed in the previous question.
+
+9. Read through the Lexer.java code and locate all the places where student code is to be added. Make a list of the lexemes that require student code to be added.
+
+IntLiteral, Less, Multiply, LeftParen, RightParen, LeftBrace, RightBrace, Semicolon, Comma, Assign, Equals, NotEqual, LessEqual, GreaterEqual, Not.
