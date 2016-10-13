@@ -3,13 +3,14 @@
 
 1. Write a function scanSum that adds the items in a list and returns a list of the running totals. So, scanSum [2,3,4,5] returns [2,5,9,14]. (HWIB)
 
-> scanSum :: [Int] -> [Int]
+> scanSum :: (Num t) => [t] -> [t]
 > scanSum xs = scan' 0 xs where
 >   scan' acc [] = []
 >   scan' acc (x:xs) = (acc + x) : scan' (acc + x) xs
 
 2. Write a function diffs that returns a list of the differences between adjacent items. So, diffs [3,5,6,8] returns [2,1,2]. (HWIB)
 
+> diffs :: (Num t) => [t] -> [t]
 > diffs xs = map sub' $ zip xs $ tail xs where
 >   sub' (h,t) = t - h
 
@@ -22,11 +23,13 @@ This function splits the given list in sub-lists (which result in a list of list
 groupByN 3 [1,2,3,4,5,6,7,8,9,10]
 [[1,2,3], [4,5,6], [7,8,9], [10]]
 
+> groupByN :: Int -> [a] -> [[a]]
 > groupByN n [] = []
 > groupByN n xs  = take n xs : groupByN n (drop n xs)
 
 4. Write a function listTrim with two lists as parameters that deletes the first occurrence of every element of the second list from the first list.
 
+> listTrim :: (Eq t) => [t] -> [t] -> [t]
 > listTrim xs ys = [ x | y <- ys, x <- (deleteFirst y xs) ]
 > unique xs = [x | (x,y) <- zip xs [0..], x `notElem` (take y xs)]
 > deleteFirst n [] = []
@@ -36,15 +39,18 @@ groupByN 3 [1,2,3,4,5,6,7,8,9,10]
 
 5. Now write a function listDiff with two lists as parameters that deletes every occurrence of every element of the second list from the first list. This is analogous to a set difference.
 
-> listDiff xs ys = [ x | x <- xs, not $ elem x ys ]
+> listDiff :: (Eq t) => [t] -> [t] -> [t]
+> listDiff xs ys = filter (\x -> notElem x ys) xs
 
 6. Implement a Run Length Encoding (RLE) encoder and decoder. The idea of RLE is simple; given some input: "aaaabbaaa" compress it by taking the length of each run of characters:(4,'a'), (2, 'b'), (3, 'a') The concat and group functions might be helpful. In order to use group, import the Data.List module by typing :m Data.List at the ghci prompt or by adding import Data.List to your Haskell source code file. What is the type of your encode and decode functions? (from HWIB)
 
 ** Kind of messy, but I got covered occurrences of a char that are >= 10. Hopefully, I give it another go and clean it up! **
 
+> encode :: [Char] -> [Char]
 > encode xs = flatten . map enc' . group $ xs where
 >   enc' ys = (show . length $ ys) ++ (take 1 ys)
 
+> decode :: [Char] -> [Char]
 > decode [] = []
 > decode xs = x ++ decode y where
 >   x = fst . dec' $ xs
