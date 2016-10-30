@@ -39,6 +39,7 @@ public class Lexer {
             if (line == null) // at end of file
                 line = "" + eofCh;
             else {
+                // System.out.println(lineno + ":\t" + line);
                 lineno++;
                 line += eolnCh;
             } // if line
@@ -67,6 +68,7 @@ public class Lexer {
             case '/':  // divide or comment
                 ch = nextChar();
                 if (ch != '/')  return Token.divideTok;
+                // comment
                 do {
                     ch = nextChar();
                 } while (ch != eolnCh);
@@ -136,6 +138,7 @@ public class Lexer {
   
     private boolean isDigit(char c) {
         return (c>='0' && c<='9');
+//        return false;  // student exercise
     }
 
     private void check(char c) {
@@ -146,6 +149,14 @@ public class Lexer {
     }
 
     private Token chkOpt(char c, Token one, Token two) {
+//        ch = nextChar();
+//        if (ch != c) {
+//            // only one =, so return asignTok
+//            return one;
+//        }
+//        // ==, advance to next char and return eqeqTok
+//        ch = nextChar();
+//        return two;
         ch = nextChar();
         if (ch != '=') {
             return one;
