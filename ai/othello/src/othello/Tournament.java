@@ -9,7 +9,7 @@ public class Tournament {
 	 * deterministic players liked MinimaxPlayer and AlphaBetaPlayer, there is
 	 * no reason to turn this above 1.
 	 */
-	public static final int GAMES_PER_CONDITION = 4;
+	public static final int GAMES_PER_CONDITION = 1;
 	
 	/**
 	 * Maximum time (in nanoseconds) allowed for all moves played by one player in a game.
@@ -25,10 +25,12 @@ public class Tournament {
 
 	public Tournament() {
 		players = new ArrayList<Player>();
-//		for (int depth = 1; depth <= 3; depth++) {
-        for (int depth = 1; depth <= 6; depth++) {
+        for (int depth = 1; depth <= 4; depth++) {
 			players.add(new MinimaxPlayer(depth));
 		}
+//		for (int depth = 1; depth <= 4; depth++) {
+//			players.add(new AlphaBetaPlayer(depth));
+//		}
 	}
 
 	/** Plays one game between two players. Returns 1 if black wins, 0 if white wins, 0.5 in case of a tie. */
@@ -74,6 +76,8 @@ public class Tournament {
 
 	/** Runs the tournament. */
 	public void run() {
+		long tStart = System.currentTimeMillis();
+
 		int n = players.size();
 		double[][] wins = new double[n][n];
 		for (int b = 0; b < players.size(); b++) {
@@ -89,8 +93,8 @@ public class Tournament {
 		}
 		for (int b = 0; b < players.size(); b++) {
 			Player p = players.get(b);
-			MinimaxPlayer m = (MinimaxPlayer) p;
-			System.out.print(m.depth + " ");
+			//MinimaxPlayer m = (MinimaxPlayer) p;
+			//System.out.print(m.depth + " ");
 			System.out.print(players.get(b) + "\t");
 			double sum = 0.0;
 			for (int w = 0; w < n; w++) {
@@ -100,6 +104,10 @@ public class Tournament {
 			System.out.println("Total: " + sum);
 		}
 		System.out.println("Elapsed time (nanoseconds):");
+		long tEnd = System.currentTimeMillis();
+		long tDelta = tEnd - tStart;
+		double elapsedSeconds = tDelta / 1000.0;
+		System.out.println(elapsedSeconds + " s");
 	}
 
 }

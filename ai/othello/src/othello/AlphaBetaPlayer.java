@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 
-public class MinimaxPlayer implements Player {
+public class AlphaBetaPlayer implements Player {
     public int depth;
 
     // Node comparator
@@ -16,7 +16,7 @@ public class MinimaxPlayer implements Player {
     };
 
 
-    public MinimaxPlayer(int depth) {
+    public AlphaBetaPlayer(int depth) {
         this.depth = depth;
     }
 
@@ -33,8 +33,12 @@ public class MinimaxPlayer implements Player {
             // Create the move node
             Node moveRoot = new Node(move[0], move[1], newState, null);
 
+            // Create alpha and beta
+            Node alpha = new Node(-1, -999, null, null);
+            Node beta = new Node(-1, 999, null, null);
+
             // Get the minimax leaf node
-            Node moveLeaf = minimax(moveRoot, depth, true);
+            Node moveLeaf = minimax(moveRoot, depth, alpha, beta, true);
 
             // Update the root node's score
             moveRoot.setScore(moveLeaf.getScore());
@@ -46,19 +50,33 @@ public class MinimaxPlayer implements Player {
         return movesQueue.poll().getPos();
     }
 
-    private Node minimax(Node node, int depth, boolean maximizingPlayer) {
+    private Node minimax(Node node, int depth, Node alpha, Node beta, boolean maximizingPlayer) {
         if (depth == 0 || node.getState().gameOver()) {
             return node;
         }
 
         if (maximizingPlayer) {
+//            Node bestNode = new Node(-1, -999, null, null);
+//            for (int[] move : node.getState().legalMovesFlips()) {
+//                State newState = node.getState().copy();
+//                newState.play(move[0]);
+//                Node child = new Node(move[0], move[1], newState, node);
+//                Node v = minimax(child, depth - 1, false);
+//                bestNode = bestNode.max(v);
+//            }
+//            return bestNode;
             Node bestNode = new Node(-1, -999, null, null);
             for (int[] move : node.getState().legalMovesFlips()) {
+                // Get a copy of the state and make child node
                 State newState = node.getState().copy();
                 newState.play(move[0]);
                 Node child = new Node(move[0], move[1], newState, node);
-                Node v = minimax(child, depth - 1, false);
-                bestNode = bestNode.max(v);
+
+                bestNode = bestNode.max(minimax(child, depth - 1, alpha, beta, false));
+                alpha = alpha.max(bestNode);
+                if (beta.getScore() <= alpha.getScore()) {
+                    break;
+                }
             }
             return bestNode;
 
@@ -66,15 +84,19 @@ public class MinimaxPlayer implements Player {
             // minimizing player
             Node bestNode = new Node(-1, 999, null, null);
             for (int[] move : node.getState().legalMovesFlips()) {
+                // Get a copy of the state and make child node
                 State newState = node.getState().copy();
                 newState.play(move[0]);
                 Node child = new Node(move[0], move[1], newState, node);
-                Node v = minimax(child, depth - 1, true);
-                bestNode = bestNode.min(v);
+
+                bestNode = bestNode.min(minimax(child, depth - 1, alpha, beta, true));
+                beta = beta.min(bestNode);
+                if (beta.getScore() <= alpha.getScore()) {
+                    break;
+                }
             }
             return bestNode;
         }
-
 
     }
 
