@@ -4,6 +4,8 @@ Chris Fenton
 
 Comments
 
+Finished 1-3. Skipped the bit transmittor.
+
 Binary Trees
 
 1. Define a Binary Tree data type and write the following functions on your binary tree data type
@@ -39,34 +41,19 @@ Clite Expression Evaluation
  data Variable = String
             deriving (Eq, Show)
 
-> type Declaration = (String,Type)
-> type Variable = String
-
-> data Program = ProgramC [Declaration] [Statement]
->             deriving (Eq)
-
-> data Type = IntType                       -- and others
->          deriving (Eq,Show)
-
-> data Statement = Skip | Block | Assignment | Conditional | Loop
->          deriving (Eq, Show)
-
-> data Expr = VarRefC Variable
->          | ValExprC Value
->          | BinaryC BinOp Expr Expr
->          | UnaryC UnaryOp Expr
->          deriving (Eq,Show)
-
-> data BinOp   = And | Or | Plus                            -- BoolOp
->              deriving (Eq,Show)
-
-> data UnaryOp  = Not | Neg deriving (Eq,Show)
-
-> data Value    = IntValC Integer                         -- and others
->              deriving (Eq,Show)
+> data Expr = Val Int | BinOp Op Expr Expr
+>             deriving (Show, Eq)
+> data Op   = Add | Sub | Mul | Div
+>             deriving (Show, Eq)
 
 
 3. Write an eval function to evaluate Expressions in the Clite Abstract Syntax that you coded in your algebraic data type for the Abstract Syntax of Clite.
+
+> exprEval (Val x) = x
+> exprEval (BinOp Add e1 e2) = (exprEval e1) + (exprEval e2)
+> exprEval (BinOp Sub e1 e2) = (exprEval e1) - (exprEval e2)
+> exprEval (BinOp Mul e1 e2) = (exprEval e1) * (exprEval e2)
+> exprEval (BinOp Div e1 e2) = (exprEval e1) `div` (exprEval e2)
 
 4. Write some meaningful tests of your expression evaluator. Coding Expressions in the algebraic data type for the abstract syntax is tedious, but if you use multi-line and indentation that can help.
 
