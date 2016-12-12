@@ -71,10 +71,16 @@ public class Parser {
 
     while (!token.type().equals(TokenType.Semicolon)) {
       id = match(TokenType.Identifier);
-      ds.add(new Declaration(new Variable(id), type));
-      if (token.type().equals(TokenType.Comma)) {
-        match(TokenType.Comma);
+
+      if (token.type().equals(TokenType.Assign)) {
+        ds.add(new AssignmentDeclaration(new Variable(id), type, assignment()));
+      } else {
+        ds.add(new BaseDeclaration(new Variable(id), type));
       }
+
+//      if (token.type().equals(TokenType.Comma)) {
+//        match(TokenType.Comma);
+//      }
     }
     match(TokenType.Semicolon);
   }
@@ -293,6 +299,7 @@ public class Parser {
   private Expression primary () {
     // Primary --> Identifier | Literal | ( Expression )
     //             | Type ( Expression )
+    //             | <<Literal,Literal>>
     Expression e = null;
     if (token.type().equals(TokenType.Identifier)) {
       e = new Variable(match(TokenType.Identifier));
@@ -308,6 +315,13 @@ public class Parser {
       Expression term = expression();
       match(TokenType.RightParen);
       e = new Unary(op, term);
+    } else if (token.type().equals(TokenType.LeftAngle)) {
+      token = lexer.next();
+      Value f = literal();
+      match(TokenType.Comma);
+      Value s = literal();
+      match(TokenType.RightAngle);
+      e = new Tuple(f, s);
     } else error("Identifier | Literal | ( | Type");
     return e;
   }

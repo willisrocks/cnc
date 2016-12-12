@@ -91,10 +91,10 @@ public class Lexer {
                 return Token.multiplyTok;
 
             case '(': ch = nextChar();
-                return Token.leftParenTok;
+                 return Token.leftParenTok;
 
             case ')': ch = nextChar();
-                return Token.rightParenTok;
+                 return Token.rightParenTok;
 
             case '{': ch = nextChar();
                 return Token.leftBraceTok;
@@ -115,11 +115,13 @@ public class Lexer {
                 return chkOpt('=', Token.assignTok,
                                    Token.eqeqTok);
             case '<':
-                return chkOpt('<', Token.ltTok,
-                                   Token.lteqTok);
+              return chkTuple('<', Token.leftTupleTok,
+                  Token.ltTok,
+                  Token.lteqTok);
             case '>':
-                return chkOpt('>', Token.gtTok,
-                                   Token.gteqTok);
+              return chkTuple('>', Token.rightTupleTok,
+                  Token.gtTok,
+                  Token.gteqTok);
             case '!':
                 return chkOpt('!', Token.notTok,
                                    Token.noteqTok);
@@ -152,6 +154,18 @@ public class Lexer {
         }
         ch = nextChar();
         return two;
+    }
+
+    private Token chkTuple(char c, Token one, Token two, Token three) {
+        ch = nextChar();
+        if (ch == c) {
+            return one;
+        }
+        ch = nextChar();
+        if (ch != '=') {
+          return two;
+        }
+        return three;
     }
 
     private String concat(String set) {

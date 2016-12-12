@@ -21,15 +21,29 @@ class Declarations extends ArrayList<Declaration> {
 
 }
 
-class Declaration {
+abstract class Declaration {
+    // Declaration = BaseDeclaration | AssignmentDeclaration
+}
+
+class BaseDeclaration extends Declaration{
 // Declaration = Variable v; Type t
     Variable v;
     Type t;
 
-    Declaration (Variable var, Type type) {
+    BaseDeclaration (Variable var, Type type) {
         v = var; t = type;
     } // declaration */
 
+}
+
+class AssignmentDeclaration extends Declaration {
+  Variable v;
+  Type t;
+  Assignment a;
+
+  AssignmentDeclaration (Variable var, Type type, Assignment ass) {
+    v = var; t = type; a = ass;
+  }
 }
 
 class Type {
@@ -262,7 +276,15 @@ class Unary extends Expression {
     Unary (Operator o, Expression e) {
         op = o; term = e;
     } // unary
+}
 
+class Tuple extends Expression {
+  Value f;
+  Value s;
+
+  Tuple(Value first, Value second) {
+    f = first; s = second;
+  }
 }
 
 class Operator {

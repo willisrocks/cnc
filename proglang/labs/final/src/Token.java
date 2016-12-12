@@ -38,6 +38,8 @@ public class Token {
     public static final Token divideTok = new Token(TokenType.Divide, "/");
     public static final Token andTok = new Token(TokenType.And, "&&");
     public static final Token orTok = new Token(TokenType.Or, "||");
+    public static final Token leftTupleTok = new Token(TokenType.LeftAngle, "<<");
+    public static final Token rightTupleTok = new Token(TokenType.RightAngle, ">>");
 
     private TokenType type;
     private String value = "";
