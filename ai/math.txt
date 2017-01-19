@@ -1,0 +1,3 @@
+Calculus helps us optimize
+Probability gives a level of confidence
+Linear Algebra helps us process large amounts of data

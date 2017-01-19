@@ -33,8 +33,10 @@ public class MinimaxPlayer implements Player {
   }
 
   public int miniMax(State board, int d, boolean maximizingPlayer) {
-    if (d == 0 || board.legalMoves().size() == 1) {
+    if (d == 0 || board.gameOver()) {
+
       return -1;
+    }
     }
     if (maximizingPlayer) {
       int bestValue = -9999;

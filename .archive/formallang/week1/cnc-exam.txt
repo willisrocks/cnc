@@ -1,0 +1,13 @@
+Chris Fenton
+CNC Entrance Exam
+
+1. C, D, F, G
+
+2. Player 1 can win by keeping the total at a multiple of 7 or 7 + 2.
+0 mod 7 or 2 mod 7
+
+3. 
+
+a) Both A1 and A2 have an odd number of dashes (only 1)
+   R1 doens't introduce a new dash
+   R2 
