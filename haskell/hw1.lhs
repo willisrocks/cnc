@@ -49,18 +49,18 @@
 
 > --mapT :: 
 
-> --mapT 
-> --mapT 
+> mapT f Nil = Nil
+> mapT f (Node a left right) = Node (f a) (mapT f left) (mapT f right)
 
   (b) Declare the Tree type constructor as an instance of the Functor class.
 
-
-
+> instance Functor Tree where
+>   fmap _ Nil = Nil
+>   fmap f (Node a left right) = Node (f a) (fmap f left) (fmap f right)
 
 4. Consider the following General Tree data type.
 
 > data GTree a = GNil | GNode a [GTree a]
-
 
   (a) Give a type and a code definition for a mapGT function over GTree. Give
       the most general type.
