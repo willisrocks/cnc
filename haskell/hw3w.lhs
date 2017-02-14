@@ -18,15 +18,27 @@ Now Give an appropriate Haskell code for a map function over your MyIO a type. D
 
 4. Give an appropriate Haskell code for a map function over the (a,b) type. Note: that (a,b) is the pair type constructor (,) applied to type variables a and b, that is, (a,b) is equivalent to the prefix form ((,) a b).
 
+> pMap f (a, b) = (f a, f b) 
+
 5. Make the type constructor ((,) a) an instance of functor class. Note as above, you may get a "multiple instance declaration" error because the system has already defined ((,) a) as an instance of the functor class. Use the newtype workaround discussed above for the IO type constructor. Note I did not have to do this.
 
-> newtype Pair a b = Pair (a,b)
+> newtype Pair a  = Pair (a,a)
+>   deriving (Show)
+
+> instance Functor Pair where
+>   fmap f (Pair (a,b)) = Pair (f a, f b)
+
+** Had to change the kind of Pair to * -> * from * -> * -> *!
 
 6. Give an appropriate Haskell code for a map function over the ((->) r) type.
 
 7. Make the type constructor ((->) r) an instance of functor class. Note again, you might need to use the newtype workaround. Note I did not have to do this.
 
-> newtype Arrow r b = Arrow ((->) r b)
+> --newtype Arrow r = Arrow ((->) r)
+
+> --instance Functor Arrow  where
+>   --fmap f (Arrow x) = f . x
+
 
 Pointed Programming Problems
 
