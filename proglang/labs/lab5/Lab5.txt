@@ -1,6 +1,6 @@
 Chris Fenton
 fenwil28
 CNC - PLD
-Lab 6
+Lab 5
 
 I've got the AST display method working and tested. 
