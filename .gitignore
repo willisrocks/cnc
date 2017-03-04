@@ -18,4 +18,4 @@ Thumbs.db
 # Java
 *.class
 *~
-#.idea/
+**/.idea
