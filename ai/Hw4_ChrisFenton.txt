@@ -1,0 +1,30 @@
+Chris Fenton
+CNC - AI
+Homework 4
+
+3.2
+
+Is the reinforcement learning framework adequate to usefully represent all goal-directed learning tasks? Can you think of any clear exceptions?
+
+Probably not. Problems where you can’t use a single value for utility could be a problem.
+
+3.4
+
+Suppose you treated pole-balancing as an episodic task but also used discounting, with all rewards zero except for −1 upon failure. What then would the return be at each time? How does this return differ from that in the discounted, continuing formulation of this task?
+
+The discount factor would provide an upper bound on the reward for a given episode as time increased.
+
+3.5
+
+Imagine that you are designing a robot to run a maze. You decide to give it a reward of +1 for escaping from the maze and a reward of zero at all other times. The task seems to break down naturally into episodes—the successive runs through the maze—so you decide to treat it as an episodic task, where the goal is to maximize expected total reward (3.1). After running the learning agent for a while, you find that it is showing no improvement in escaping from the maze. What is going wrong? Have you effectively communicated to the agent what you want it to achieve?
+
+There is no penalty for staying in the maze as long as you eventually find a solution. This probably isn’t what you really want (a human would die from the elements, starvation, old age, etc if they didn’t get out of the maze soon enough). You could invert the reward (-1) and minimize the amount of time in the maze.
+
+
+3.7
+
+What is the Bellman equation for action values, that is, for qπ? It must give the action value qπ(s,a) in terms of the action values, qπ(s′,a′), of possible successors to the state–action pair (s,a). As a hint, the backup diagram corresponding to this equation is given in Figure 3.4 (right). Show the sequence of equations analogous to (3.12), but for action values.
+
+Qπ(s,a) =  Eπ {Rt | st = s, at = a}
+            =  Eπ{ k=0Σ∞ yk rt+k+1 | st = s, at = a}
+            =  s’Σ Ras,s’ Pas,s’ + y s’Σa’ΣQπ(s’,a’)π(s’,a’)Pas,s’

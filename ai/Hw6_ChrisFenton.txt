@@ -1,0 +1,37 @@
+Chris Fenton
+CNC - AI
+Homework 6
+
+4.1
+
+In Example 4.1, if π is the equiprobable random policy, what is qπ(11,down)? What is qπ(7,down)?
+
+Qπ(s,a) = Σs’  {Ras,s’ Pas,s’} + yΣs’ {Pas,s’ Vπ(s’)}
+
+Qπ(11,down) 	= R(down|11,T) * P(down|11,T) + y *  P(down|11,T) * Vπ(T)
+            = 0 * 1 + y * 1 * 0
+		= 0
+
+Qπ(7,down) 	= R(down|7,11) * P(down|7,11) + y *  P(down|7,11) * Vπ(11)
+		= -1 * 1 + y * 1 * -14	// Vπ(11) = -14 from fig 4.1
+		= -1 - 14y
+		= -15 when y = 1
+
+
+4.2
+
+In Example 4.1, suppose a new state 15 is added to the gridworld just below state 13, and its actions, left, up, right, and down, take the agent to states 12, 13, 14, and 15, respectively. Assume that the transitions from the original states are unchanged. What, then, is vπ(15) for the equiprobable random policy? Now suppose the dynamics of state 13 are also changed, such that action down from state 13 takes the agent to the new state 15. What is vπ(15) for the equiprobable random policy in this case?
+
+Vπ(S)  = Σa {π(s,a)} Σs’ {(P(a)|s,s’)((R(a)|s,s’)+ yV(s’))}
+Vπ(15) = Σa {π(15,a)} Σs’ {(P(a)|15,s’)((R(a)|15,s’)+ yV(s’))}
+	 = 1 * .25 * (-1-22y-1-20y-1-14y-1+20y)
+   	 = .25 * (-76y - 4)
+   	 = .25 * (-80) when y = 1
+     	 = -20
+
+Given state 13 is changed to account for the new state:
+
+Vπ(13) = .25(-4 + yVπ(12) + yVπ(9) + yVπ(14) + yVπ(15))
+Vπ(15) = .25(-4 + yVπ(12) + yVπ(13) + yVπ(14) + yVπ(15)
+
+At this point, I’m not sure how to easily solve this set of equations.
