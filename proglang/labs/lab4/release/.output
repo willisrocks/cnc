@@ -1,0 +1,55 @@
+int
+main
+(
+)
+{
+float
+Identifier	a
+,
+Identifier	x
+,
+Identifier	result
+;
+Identifier	a
+=
+FloatLiteral	4.0
+;
+Identifier	x
+=
+FloatLiteral	1.0
+;
+while
+(
+Identifier	x
+*
+Identifier	x
+>
+Identifier	a
++
+FloatLiteral	0.0001
+||
+Identifier	x
+*
+Identifier	x
+<
+Identifier	a
+-
+FloatLiteral	0.0001
+)
+Identifier	x
+=
+(
+Identifier	x
++
+Identifier	a
+/
+Identifier	x
+)
+/
+FloatLiteral	2.0
+;
+Identifier	result
+=
+Identifier	x
+;
+}

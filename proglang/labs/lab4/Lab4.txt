@@ -1,0 +1,5 @@
+Chris Fenton
+CNC - Proglang
+Lab 4 - Parser
+
+I completed and tested the parser on all the example .cpp files. I modified the bash script I used to test the parser to write the output of parsing all of the .cpp files to a .output file. I don't have a working display() method yet, so I'm just writing any error messages to the .output files. After fixing a couple of things, I'm running all .cpp files without any errors.

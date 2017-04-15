@@ -1,3 +1,5 @@
+> import Prelude hiding (Maybe(..), Either(..))
+
 1. Use the newtype facility in Haskell to define your own MyIO type as follows This will allow you to code your own IO type as a functor and run the code.
 
 > newtype MyIO a = MyIO (IO a)
@@ -34,22 +36,46 @@ Now Give an appropriate Haskell code for a map function over your MyIO a type. D
 
 7. Make the type constructor ((->) r) an instance of functor class. Note again, you might need to use the newtype workaround. Note I did not have to do this.
 
-> --newtype Arrow r = Arrow ((->) r)
-
-> --instance Functor Arrow  where
->   --fmap f (Arrow x) = f . x
+> --instance Functor ((->) r) where
+>   --fmap f g = (\x -> f (g x))
 
 
 Pointed Programming Problems
 
 8. Define a class called Pointed following the Typeclassopedia paper (the original version of the paper linked on the main page). You'll need to define Pointed with Functor as a context.
 
+> class Functor f => Pointed f where
+>   mypure :: a -> f a
+
 9. Define an instance of Pointed for the type constructor Maybe given in Hw1. Remember you'll need to import Prelude hiding Maybe(..) and define the Maybe data type as you did in Hw1. You'll also have to include your instance Functor Maybe from Hw1.
+
+> data Maybe a = Nothing | Just a deriving (Show)
+
+> instance Functor Maybe where
+>   fmap _ Nothing = Nothing
+>   fmap f (Just a) = Just (f a)
+
+> instance Pointed Maybe where
+>   mypure = Just
+
 10. Define an instance of Pointed for the type constructor (Either a) given in Hw1. Again you'll need to import Prelude hiding Either(..) and define the Either data type as you did in Hw1. You'll also have to include your instance Functor (Either a) from Hw1.
+
+> data Either a b = Left a | Right b deriving (Show)
+
+> instance Functor (Either a) where
+>   fmap f (Right b) = Right (f b)
+
+> instance Pointed (Either a) where
+>   mypure = Right
 
 11. Define an instance of Pointed for the type constructor ((->) r). Use your Arrow newtype above if needed.
 
+> --instance Pointed ((->) r) where
+>   --mypure = id
+
 12. Explain the purpose of the Pointed class.
+
+The purpose of the Pointed class is to give a type class for things that can put a value into a default context.
 
 Functor and Pointed Proofs
 
